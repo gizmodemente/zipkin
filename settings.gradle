@@ -1,0 +1,5 @@
+rootProject.name = 'zipkin'
+include 'eureka'
+include 'micro-one'
+include 'micro-two'
+include 'zipkin'
