@@ -1,5 +1,6 @@
 package es.paradigma.demo.service.impl;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import es.paradigma.demo.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,13 @@ public class TestServiceDefault implements TestService{
     private static Logger LOGGER = LoggerFactory.getLogger(TestServiceDefault.class);
 
     @Override
+    @HystrixCommand(fallbackMethod = "testServiceFallback")
     public String testServiceMethd() {
         return restTemplate.getForObject
                 ("http://micro-two/test", String.class);
+    }
+
+    public String testServiceFallback() {
+        return "i'm alone";
     }
 }
